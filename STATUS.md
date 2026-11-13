@@ -30,10 +30,15 @@ O registro A original apontava para "Parked" e foi reaproveitado.
    (no `<script>` do fim do arquivo) estiver vazia, ele avisa "as inscrições abrem em breve" em vez
    de fingir que deu certo. Para ligar: colocar a URL do webhook (Make) ou do formulário (Brevo /
    Systeme) nessa constante. O resto já está pronto, inclusive o disparo do evento `Lead` no pixel.
-2. **Data da aula.** O hero dizia "Terça-feira, [DIA] de [MÊS]"; trocado por "Próxima turma: data a
-   confirmar". Quando a data existir, é uma linha só.
-3. **HTTPS.** O certificado do GitHub leva de minutos a ~1h depois do DNS apontar. Verificar em
-   Settings > Pages do repositório se "Enforce HTTPS" ficou marcado.
+2. ~~Data da aula~~ **RESOLVIDO em 13/11:** o webinário é **segunda-feira, 07/12/2026, às 20h**.
+   Está em dois lugares do `index.html`: a tarja do hero e o subtítulo do CTA final. Se a data mudar,
+   procure por "7 de dezembro" e troque nos dois.
+3. ~~HTTPS~~ **RESOLVIDO em 13/11:** https://laivou.com responde 200, http redireciona para https e
+   www redireciona para o domínio raiz. "Enforce HTTPS" está ligado.
+   ⚠️ **Armadilha:** o GitHub ficou 24 minutos sem sequer pedir o certificado (`https_certificate: null`).
+   O que destravou foi **remover e recolocar o domínio** pela API, o que força a revalidação do DNS:
+   `gh api -X PUT repos/ivancdp/laivou-lp/pages -f cname=""` e depois o mesmo comando com
+   `-f cname="laivou.com"`. Em segundos o certificado saiu como `approved`.
 4. Confirmar com o Gian a foto dele (vale desde 09/11).
 
 ## Nota sobre o push
